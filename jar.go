@@ -11,13 +11,13 @@ type CookieJar struct {
     lock sync.Mutex
 }
 
-func (jar *CookieJar) SetCookies(u *url.URL, cookies []*http.Cookie) {
+func (jar CookieJar) SetCookies(u *url.URL, cookies []*http.Cookie) {
     jar.lock.Lock()
     jar.data[u.Host] = cookies
     jar.lock.Unlock()
 }
 
-func (jar *CookieJar) Cookies(u *url.URL) []*http.Cookie {
+func (jar CookieJar) Cookies(u *url.URL) []*http.Cookie {
     // FIXME: This is a very naive implementation
     return jar.data[u.Host]
 }
